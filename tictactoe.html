@@ -130,6 +130,35 @@
   </div>
 
   <script>
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playTone(freq, type, duration, gainVal = 0.3) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    }
+
+    function soundPlace(player) {
+      playTone(player === 'X' ? 440 : 330, 'sine', 0.15);
+    }
+
+    function soundWin() {
+      [523, 659, 784].forEach((f, i) => {
+        setTimeout(() => playTone(f, 'sine', 0.3, 0.35), i * 120);
+      });
+    }
+
+    function soundDraw() {
+      playTone(220, 'sawtooth', 0.4, 0.2);
+    }
+
     const WINS = [
       [0,1,2],[3,4,5],[6,7,8],
       [0,3,6],[1,4,7],[2,5,8],
@@ -171,6 +200,7 @@
         board[i] = current;
         cell.textContent = current;
         cell.classList.add('taken', current.toLowerCase());
+        soundPlace(current);
 
         const result = checkWinner();
         if (result) {
@@ -179,12 +209,14 @@
             status.textContent = "It's a draw!";
             score.D++;
             document.getElementById('draws').textContent = score.D;
+            soundDraw();
           } else {
             status.textContent = `Player ${result.winner} wins!`;
             result.line.forEach(idx => cells[idx].classList.add('win'));
             score[result.winner]++;
             document.getElementById('xWins').textContent = score.X;
             document.getElementById('oWins').textContent = score.O;
+            soundWin();
           }
         } else {
           current = current === 'X' ? 'O' : 'X';
