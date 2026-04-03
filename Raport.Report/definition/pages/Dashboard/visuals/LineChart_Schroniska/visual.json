@@ -1,0 +1,55 @@
+{
+  "name": "LineChart_Schroniska",
+  "position": {
+    "x": 640.0,
+    "y": 420.0,
+    "z": 3001.0,
+    "height": 260.0,
+    "width": 620.0,
+    "tabOrder": 3001
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Schroniska" }
+                  },
+                  "Property": "Rok"
+                }
+              },
+              "queryRef": "Schroniska.Rok",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Function": 0,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": { "Entity": "Schroniska" }
+                      },
+                      "Property": "Liczba schronisk"
+                    }
+                  }
+                }
+              },
+              "queryRef": "Sum(Schroniska.Liczba schronisk)",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "BarChart_Adopcje",
+  "position": {
+    "x": 840.0,
+    "y": 140.0,
+    "z": 2001.0,
+    "height": 260.0,
+    "width": 420.0,
+    "tabOrder": 2001
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Schroniska" }
+                  },
+                  "Property": "Rok"
+                }
+              },
+              "queryRef": "Schroniska.Rok",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Function": 0,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": { "Entity": "Schroniska" }
+                      },
+                      "Property": "Psy adoptowane"
+                    }
+                  }
+                }
+              },
+              "queryRef": "Sum(Schroniska.Psy adoptowane)",
+              "active": false
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Function": 0,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": { "Entity": "Schroniska" }
+                      },
+                      "Property": "Koty adoptowane"
+                    }
+                  }
+                }
+              },
+              "queryRef": "Sum(Schroniska.Koty adoptowane)",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

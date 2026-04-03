@@ -1,0 +1,34 @@
+{
+  "name": "Card_ZwierzetaLacznie",
+  "position": {
+    "x": 20.0,
+    "y": 20.0,
+    "z": 1000.0,
+    "height": 100.0,
+    "width": 280.0,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Schroniska" }
+                  },
+                  "Property": "Łączna liczba zwierząt"
+                }
+              },
+              "queryRef": "Schroniska.Łączna liczba zwierząt",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

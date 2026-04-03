@@ -1,0 +1,135 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1605,
+  "model": {
+    "culture": "pl-PL",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "pl-PL",
+    "tables": [
+      {
+        "name": "Schroniska",
+        "columns": [
+          {
+            "name": "Rok",
+            "dataType": "int64",
+            "sourceColumn": "Rok"
+          },
+          {
+            "name": "Psy w schroniskach",
+            "dataType": "int64",
+            "sourceColumn": "Liczba psów w schroniskach"
+          },
+          {
+            "name": "Psy adoptowane",
+            "dataType": "int64",
+            "sourceColumn": "Liczba psów adoptowanych ze schronisk"
+          },
+          {
+            "name": "Psy na koniec roku",
+            "dataType": "int64",
+            "sourceColumn": "Liczba psów w schroniskach - stan na koniec roku"
+          },
+          {
+            "name": "Koty w schroniskach",
+            "dataType": "int64",
+            "sourceColumn": "Liczba kotów w schroniskach"
+          },
+          {
+            "name": "Koty adoptowane",
+            "dataType": "int64",
+            "sourceColumn": "Liczba kotów adoptowanych ze schronisk"
+          },
+          {
+            "name": "Koty na koniec roku",
+            "dataType": "int64",
+            "sourceColumn": "Liczba kotów w schroniskach - stan na koniec roku"
+          },
+          {
+            "name": "Liczba schronisk",
+            "dataType": "int64",
+            "sourceColumn": "Liczba wszystkich schronisk"
+          },
+          {
+            "name": "Schroniska z psami",
+            "dataType": "int64",
+            "sourceColumn": "Liczba schronisk, w których przebywały psy"
+          }
+        ],
+        "measures": [
+          {
+            "name": "% Adoptowanych psów",
+            "expression": "DIVIDE(SUM(Schroniska[Psy adoptowane]), SUM(Schroniska[Psy w schroniskach]))",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "% Adoptowanych kotów",
+            "expression": "DIVIDE(SUM(Schroniska[Koty adoptowane]), SUM(Schroniska[Koty w schroniskach]))",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Łączna liczba zwierząt",
+            "expression": "SUM(Schroniska[Psy w schroniskach]) + SUM(Schroniska[Koty w schroniskach])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Łączna liczba adoptowanych",
+            "expression": "SUM(Schroniska[Psy adoptowane]) + SUM(Schroniska[Koty adoptowane])",
+            "formatString": "#,0"
+          },
+          {
+            "name": "% Adoptowanych łącznie",
+            "expression": "DIVIDE([Łączna liczba adoptowanych], [Łączna liczba zwierząt])",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Zmiana psów YoY",
+            "expression": "VAR biezacy = SUM(Schroniska[Psy w schroniskach])\nVAR poprzedni = CALCULATE(SUM(Schroniska[Psy w schroniskach]), FILTER(ALL(Schroniska[Rok]), Schroniska[Rok] = MAX(Schroniska[Rok]) - 1))\nRETURN DIVIDE(biezacy - poprzedni, poprzedni)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Zmiana kotów YoY",
+            "expression": "VAR biezacy = SUM(Schroniska[Koty w schroniskach])\nVAR poprzedni = CALCULATE(SUM(Schroniska[Koty w schroniskach]), FILTER(ALL(Schroniska[Rok]), Schroniska[Rok] = MAX(Schroniska[Rok]) - 1))\nRETURN DIVIDE(biezacy - poprzedni, poprzedni)",
+            "formatString": "0.00%"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Schroniska",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:\\Users\\Julia Olbrecht\\Desktop\\ClaudeCodeTest\\schroniska_zwierzeta_polska.csv\"),[Delimiter=\",\", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{",
+                "        {\"Rok\", Int64.Type},",
+                "        {\"Liczba psów w schroniskach\", Int64.Type},",
+                "        {\"Liczba psów adoptowanych ze schronisk\", Int64.Type},",
+                "        {\"Liczba psów w schroniskach - stan na koniec roku\", Int64.Type},",
+                "        {\"Liczba kotów w schroniskach\", Int64.Type},",
+                "        {\"Liczba kotów adoptowanych ze schronisk\", Int64.Type},",
+                "        {\"Liczba kotów w schroniskach - stan na koniec roku\", Int64.Type},",
+                "        {\"Liczba wszystkich schronisk\", Int64.Type},",
+                "        {\"Liczba schronisk, w których przebywały psy\", Int64.Type}",
+                "    })",
+                "in",
+                "    #\"Changed Type\""
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Schroniska\"]"
+      }
+    ]
+  }
+}

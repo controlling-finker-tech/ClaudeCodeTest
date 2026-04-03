@@ -1,0 +1,12 @@
+model Model
+	culture: pl-PL
+
+	/// Dodaj tutaj tabele, miary i relacje
+	/// Przykład:
+	/// table Sprzedaż
+	///   column Data
+	///     dataType: dateTime
+	///   measure 'Suma sprzedaży' = SUM(Sprzedaż[Kwota])
+
+	/// Połączenie z danymi źródłowymi zostanie skonfigurowane
+	/// po określeniu źródła (CSV, SQL, itp.)

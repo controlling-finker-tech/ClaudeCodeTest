@@ -1,0 +1,39 @@
+{
+  "name": "Card_Schroniska",
+  "position": {
+    "x": 920.0,
+    "y": 20.0,
+    "z": 1003.0,
+    "height": 100.0,
+    "width": 340.0,
+    "tabOrder": 1003
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Function": 0,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": { "Entity": "Schroniska" }
+                      },
+                      "Property": "Liczba schronisk"
+                    }
+                  }
+                }
+              },
+              "queryRef": "Sum(Schroniska.Liczba schronisk)",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}

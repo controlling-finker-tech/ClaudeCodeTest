@@ -1,0 +1,62 @@
+{
+  "name": "LineChart_ProcAdopcji",
+  "position": {
+    "x": 20.0,
+    "y": 420.0,
+    "z": 3000.0,
+    "height": 260.0,
+    "width": 600.0,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Schroniska" }
+                  },
+                  "Property": "Rok"
+                }
+              },
+              "queryRef": "Schroniska.Rok",
+              "active": false
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Schroniska" }
+                  },
+                  "Property": "% Adoptowanych psów"
+                }
+              },
+              "queryRef": "Schroniska.% Adoptowanych psów",
+              "active": false
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": { "Entity": "Schroniska" }
+                  },
+                  "Property": "% Adoptowanych kotów"
+                }
+              },
+              "queryRef": "Schroniska.% Adoptowanych kotów",
+              "active": false
+            }
+          ]
+        }
+      }
+    }
+  }
+}
